@@ -13,6 +13,8 @@ import android.view.TextureView;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageAnalysisConfig;
 import androidx.camera.core.ImageCapture;
@@ -92,23 +94,23 @@ public class CameraSetting {
         Log.d(TAG, "onClick: " + file.getAbsolutePath());
         imageCapture.takePicture(file,
                 new ImageCapture.OnImageSavedListener() {
-                    @Override
-                    public void onError(ImageCapture.UseCaseError error,
-                                        String message, Throwable exc) {
-                        Log.e(TAG, "onError: :" + error.toString());
-                        String msg = "Photo capture failed: " + message;
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-                        Log.e("CameraXApp", msg);
-                        if (exc != null) {
-                            exc.printStackTrace();
-                        }
-                    }
 
                     @Override
                     public void onImageSaved(File file) {
                         String msg = new String("Photo capture succeeded: " + file.getAbsolutePath());
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                         Log.d("CameraXApp", msg);
+                    }
+
+                    @Override
+                    public void onError(@NonNull ImageCapture.ImageCaptureError imageCaptureError, @NonNull String message, @Nullable Throwable cause) {
+                        Log.e(TAG, "onError: :" + imageCaptureError.toString());
+                        String msg = "Photo capture failed: " + message;
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        Log.e("CameraXApp", msg);
+                        if (cause != null) {
+                            cause.printStackTrace();
+                        }
                     }
                 });
     }

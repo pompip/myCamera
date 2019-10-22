@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".VideoActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <chong.mycamera.view.MyDragFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/toggle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="toggle1" />
+
+        <Button
+            android:id="@+id/toggle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:text="toggle2" />
+
+        <Button
+            android:id="@+id/toggle3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:text="toggle3" />
+
+
+        <chong.mycamera.view.MyTextView
+            android:id="@+id/level1"
+            android:layout_gravity="center"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="#bb4455"
+            android:text="hello world" />
+
+        <TextView
+            android:layout_gravity="center|right"
+            android:id="@+id/level2"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="#44bb55"
+            android:text="覆盖" />
+
+    </chong.mycamera.view.MyDragFrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:text="hl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+
+</FrameLayout>
