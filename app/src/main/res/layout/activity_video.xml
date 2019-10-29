@@ -26,14 +26,17 @@
             android:text="toggle2" />
 
         <Button
+            android:elevation="0dp"
             android:id="@+id/toggle3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
+            android:tag="move"
             android:text="toggle3" />
 
 
         <chong.mycamera.view.MyTextView
+            android:tag="move"
             android:id="@+id/level1"
             android:layout_gravity="center"
             android:layout_width="80dp"
@@ -42,22 +45,25 @@
             android:text="hello world" />
 
         <TextView
-            android:layout_gravity="center|right"
             android:id="@+id/level2"
             android:layout_width="100dp"
             android:layout_height="50dp"
+            android:layout_gravity="center|right"
             android:background="#44bb55"
+            android:tag="move"
             android:text="覆盖" />
 
     </chong.mycamera.view.MyDragFrameLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:text="hl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </FrameLayout>
+<!--    <chong.mycamera.view.MyDragFrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--        <TextView-->
+<!--            android:text="覆盖2"-->
+<!--            android:tag="move"-->
+<!--            android:background="#4444ff"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="50dp"/>-->
+<!--    </chong.mycamera.view.MyDragFrameLayout>-->
 
 </FrameLayout>

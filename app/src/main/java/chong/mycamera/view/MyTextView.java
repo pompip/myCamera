@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,53 +125,51 @@ public class MyTextView extends AppCompatTextView {
         if (!isShown()) {
             return false;
         }
-        Rect currentViewRect = new Rect();
-        boolean globalVisibleRect = getGlobalVisibleRect(currentViewRect);
+        Rect rect = new Rect();
+        boolean globalVisibleRect = getGlobalVisibleRect(rect);
         if (!globalVisibleRect) {
             return false;
         }
 
         View currentView = this;
-        while (currentView.getParent() instanceof ViewGroup) {
+        while (currentView.getParent() instanceof ViewGroup) { //遍历父控件
             ViewGroup currentParent = (ViewGroup) currentView.getParent();
             int start = currentParent.indexOfChild(currentView);
-            for (int i = start + 1; i < currentParent.getChildCount(); i++) {
+            for (int i = start + 1; i < currentParent.getChildCount(); i++) { //从自己开始遍历同级控件
                 View otherView = currentParent.getChildAt(i);
                 if (otherView.getVisibility() != VISIBLE) {
                     continue;
                 }
-                Rect otherViewRect = new Rect();
-                otherView.getGlobalVisibleRect(otherViewRect);
-                if (Rect.intersects(currentViewRect, otherViewRect)) {
-                    if (otherView instanceof ViewGroup) {
-                        if (((ViewGroup) otherView).getChildCount() != 0) {
-                            checkChild(otherView, currentViewRect);
+                ArrayDeque<View> arrayDeque = new ArrayDeque<View>();
+                arrayDeque.addLast(otherView);
+                while (!arrayDeque.isEmpty()) { //遍历子控件
+                    View first = arrayDeque.getFirst();
+                    Rect currentRect = new Rect();
+                    first.getGlobalVisibleRect(currentRect);
+                    if (Rect.intersects(rect, currentRect)) {
+                        if (first instanceof ViewGroup) {
+                            int count = ((ViewGroup) first).getChildCount();
+                            for (int j = 0; j < count; j++) {
+                                arrayDeque.addLast(((ViewGroup) first).getChildAt(j));
+                            }
+                        } else {
+                            Log.e(TAG, "checkChild: "+otherView );
                             return false;
                         }
                     }
+                    arrayDeque.pollFirst();
                 }
 
             }
             currentView = currentParent;
         }
-        return globalVisibleRect;
+        return true;
 
     }
 
     void checkChild(View view, Rect rect) {
-        Rect currentRect = new Rect();
-        view.getGlobalVisibleRect(currentRect);
-        if (Rect.intersects(rect, currentRect)) {
-            if (view instanceof ViewGroup) {
-                for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                    checkChild(((ViewGroup) view).getChildAt(i), rect);
-                }
 
-            } else {
 
-            }
-        }
-        Log.e(TAG, "checkChild: " + view);
     }
 
 }
